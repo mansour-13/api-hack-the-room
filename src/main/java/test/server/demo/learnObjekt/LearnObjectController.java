@@ -13,11 +13,6 @@ import java.util.Optional;
 @RestController
 public class LearnObjectController {
     private final LearnObjectRepository learnObjectRepository;
-//                     "You're in a tight spot, and the emergency emitter is your only hope. Use your coding skills to program it.",
-//                             "Your objective is to use the Java `System.out.println` method to print a distress signal to the console.",
-//                             "The distress signal should read: 'Houston, we have a problem'.",
-//                             "Remember, the space station might be your only hope. But isn't there an escape pod on this spaceship?"
-
 
     public LearnObjectController(LearnObjectRepository learnObjectRepository) {
         this.learnObjectRepository = learnObjectRepository;
@@ -102,7 +97,7 @@ public class LearnObjectController {
                         "    }\n" +
                         "}",
                 180,
-                        "/images/picture2.jpeg");
+                "/images/picture2.jpeg");
         learnObjectRepository.save(temp2);
         LearnObject temp3 = new LearnObject(
                 3,
@@ -287,8 +282,8 @@ public class LearnObjectController {
 
     @GetMapping("/level/{id}")
     public ResponseEntity<LearnObject> getLearnObjerctById(@PathVariable int id) {
-        Optional<LearnObject> temp =  this.learnObjectRepository.findById(id);
-        if (temp.isPresent()){
+        Optional<LearnObject> temp = this.learnObjectRepository.findById(id);
+        if (temp.isPresent()) {
             return new ResponseEntity<>(temp.get(), HttpStatus.OK);
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No meme under this id found.");

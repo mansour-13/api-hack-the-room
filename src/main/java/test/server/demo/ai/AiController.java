@@ -1,6 +1,5 @@
 package test.server.demo.ai;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -53,11 +51,6 @@ public class AiController {
     // Working to include this PostMapping
     @PostMapping(value = "/getBinaryAnswerToCode", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getBinaryAnswerToCode(@RequestBody CodeComparisonRequest request) {
-
-        //        System.out.println("Coding challenge: " + request.getCodeChallenge());
-        //        System.out.println("Provided code: " + request.getCode());
-        //        System.out.println("AI result: " + result);
-//       "Please focus on evaluating the 'code-to-evaluate' against the requirements in the 'assignment'
 
         String promptToEvaluate =
                 "You are given two code snippets. The first snippet, 'assignment', is describing the task for a user to solve in the second snippet, 'code-to-evaluate'.\n\n" +
@@ -116,66 +109,4 @@ public class AiController {
         System.out.println("ChatGPT solution: " + result);
         return ResponseEntity.ok(Collections.singletonMap("result", result));
     }
-
-
-
-    //        String[] parts = result.split("\n");
-//        if (parts.length >= 2) {
-//            String booleanResult = parts[0].split("\\.")[1].trim();
-//            String explanation = parts[1].split("\\.")[1].trim();
-//
-//            Map<String, Object> resultMap = new HashMap<>();
-//            resultMap.put("result", Boolean.parseBoolean(booleanResult));
-//            resultMap.put("explanation", explanation);
-//
-//            return ResponseEntity.ok(resultMap);
-//        }
-//        return ResponseEntity.ok(Collections.singletonMap("result", result));
-//    }
-
-    //Old version, just to save it
-    // Working to include this PostMapping
-//    @PostMapping(value = "/evaluateCode", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<?> evaluateCode(@RequestBody String code) {
-//        String promptToEvaluate = "The user is playing an escape room game. the following code is part of a challenge." +
-//                "Evaluate the given code for correctness: " + code + ". Give the answer in a style fitting the theme of the game.";
-//
-//        String result = this.aiService.prompt(promptToEvaluate);
-//        return ResponseEntity.ok(Collections.singletonMap("result", result));
-//    }
-
-    //    @PostMapping(value = "/getBinaryAnswerToCode", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<?> getBinaryAnswerToCode(@RequestBody CodeComparisonRequest request) {
-//        String promptToEvaluate =
-//                "Here's a coding challenge:\n\n" +
-//                        request.getCodeChallenge() +
-//                        "\n\nHere's a proposed solution:\n\n" +
-//                        request.getCode() +
-//                        "\n\n----DELIMITER BETWEEN POINTS!----\n" +
-//                        "1. Reformat the code without changing the logic.\n" +
-//                        "----DELIMITER BETWEEN POINTS!----\n" +
-//                        "2. Is the reformatted code an appropriate answer to the solution? Only answer with 'true' or 'false'.";
-//
-//        System.out.println(request.getCodeChallenge());
-//        System.out.println(request.getCode());
-//
-//        String result = this.aiService.prompt(promptToEvaluate);
-//        System.out.println(result);
-//        String[] sections = result.split("----DELIMITER BETWEEN POINTS!----");
-//
-//        // Assuming the AI respects the structure and returns two sections
-//        if (sections.length >= 2) {
-//            String reformattedCode = sections[0].trim();
-//            String validity = sections[1].trim().split("\\.")[1].trim();
-//
-//            Map<String, Object> resultMap = new HashMap<>();
-//            resultMap.put("reformattedCode", reformattedCode);
-//            resultMap.put("result", Boolean.parseBoolean(validity));
-//
-//            return ResponseEntity.ok(resultMap);
-//        }
-//        return ResponseEntity.badRequest().body("Unexpected response format");
-//    }
-
-// .replaceAll(Pattern.quote("+"), "%2B")
 }
